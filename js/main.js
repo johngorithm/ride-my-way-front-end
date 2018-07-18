@@ -63,7 +63,7 @@ $(document).ready(function () {
     }
   });
 
-
+  // LOGIN
   $('main.content .wrapper form button#login-btn').on('click', function (event) {
     event.preventDefault();
     let err = '';
@@ -93,7 +93,7 @@ $(document).ready(function () {
     }
   });
 
-
+  // REGISTER
   $('main.content .wrapper form button#register-btn').on('click', function (event) {
     event.preventDefault();
 

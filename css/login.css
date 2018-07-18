@@ -46,3 +46,7 @@ main.content .overlay {
   right: 0;
   bottom: 0;
 }
+
+.success-message {
+  color: rgb(6, 174, 6);
+}
