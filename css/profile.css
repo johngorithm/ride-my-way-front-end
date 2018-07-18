@@ -1,0 +1,62 @@
+header {
+    height: 450px;
+    padding-top: 65px;
+    text-align: center;
+    background: linear-gradient(180deg, dodgerblue 40%, rgb(33, 100, 215) 70%, rgb(65, 154, 232) 100%);
+}
+
+header #user-info h4, header #user-info p {
+    color: white;
+}
+
+header #user-info p span.bullet {
+    height: 10px;
+    width: 10px;
+    background: rgb(0, 248, 29);
+    display: inline-block;
+    border-radius: 50%;
+}
+
+header #user-info img {
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin-bottom: 15px;
+}
+
+section#ride-details {
+    padding: 30px 0;
+    background: 0;
+}
+
+section#ride-details .square {
+    border-radius: 5px;
+    padding-top: 35px;
+    box-shadow: 0 2px 6px 3px rgba(0, 0, 0, 0.06);
+    border: 0;
+}
+section#ride-details .square p {
+    font-weight: bold;
+    color: rgba(0,0,0,0.8);
+}
+section.hori-display {
+    padding: 30px 0;
+}
+
+section.hori-display .container {
+    padding: 15px 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    text-align: left;
+}
+
+section.hori-display .container .item {
+    display: inline-block;
+    margin-right: 15px;
+    width: 230px ;
+}
+section.hori-display h5 {
+    color: rgba(0,0,0,0.8);
+    font-weight: bold;
+}

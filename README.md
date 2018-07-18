@@ -1,1 +1,1 @@
-# ride-my-way-front-end
+# ride-my-way-app
