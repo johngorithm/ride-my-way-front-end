@@ -489,7 +489,7 @@ form input {
 }
 
 
-p.error-message {
+.error-message {
     color: orangered;
     font-size: 13px;
     margin: 0;

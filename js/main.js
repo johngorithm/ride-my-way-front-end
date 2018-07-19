@@ -64,68 +64,9 @@ $(document).ready(function () {
   });
 
   // LOGIN
-  $('main.content .wrapper form button#login-btn').on('click', function (event) {
-    event.preventDefault();
-    let err = '';
-    let errorOutput = $('.content .wrapper form p.error-message');
-    let username = $('.content .wrapper form input[name=username]').val();
-    let password = $('.content .wrapper form input[name=password]').val();
 
-    if (!username && !password) {
-      err = 'Username and Password are both required!';
-      errorOutput.text(err);
-    } else if (!username && password) {
-      err = 'Username is required!';
-      if (!(password.length >= 6)) {
-        err = 'Username is required and Password is less than 6 characters';
-      }
-      errorOutput.text(err);
-    } else if (!password && username) {
-      err = 'Password is required!';
-      errorOutput.text(err);
-    } else if (username && password) {
-      if (!(password.length >= 6)) {
-        err = 'Password is less than 6 characters';
-        errorOutput.text(err);
-      }else {
-        window.location.href = './home.html';
-      }
-    }
-  });
 
   // REGISTER
-  $('main.content .wrapper form button#register-btn').on('click', function (event) {
-    event.preventDefault();
-
-    let errorOutput = $('.content .wrapper form p.error-message');
-    errorOutput.text = '';
-
-    let fullname = $('.content .wrapper form input[name=fullname]');
-    let phone = $('.content .wrapper form input[name=phone]');
-    let email = $('.content .wrapper form input[name=email]');
-    let username = $('.content .wrapper form input[name=username]');
-    let password = $('.content .wrapper form input[name=password]');
-
-    let fields = [fullname, phone, email, username, password];
-    let allProvided = true;
-    fields.forEach(function (field) {
-      if (!field.val()) {
-        field.prev().text('This field is require!');
-        allProvided = false;
-      } else if(field.attr('name') == 'password'){
-                    if(!(field.val().length >= 6)){
-                        field.prev().text('Password must be at least 6 characters!');
-                        allProvided = false;
-                    }
-                }else{
-                    field.prev().text('');
-                }
-    });
-
-    if (allProvided) {
-      window.location.href = './home.html';
-    }
-  });
 
   let rideDetailModal = $('.modal#detail-modal');
 
