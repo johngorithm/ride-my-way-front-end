@@ -28,26 +28,42 @@
         <div class="overlay"></div>
         <div class="wrapper">
             <h3>JOIN US</h3>
-            <form action="#" method="POST">
-                <p class="error-message"></p>
-                <input type="text" placeholder="Full Name" name="fullname" required>
-                <br>
-                <p class="error-message"></p>
-                <input type="email" placeholder="Email" name="email" required>
-                <br>
-                <p class="error-message"></p>
-                <input type="text" placeholder="Username" name="username" required>
-                <br>
-                <p class="error-message"></p>
-                <input type="password" placeholder="Password" name="password" required>
-                <br>
+            <form id="register-form">
 
-                <button id="register-btn"type="submit" class="button button-blue" >REGISTER</button>
+                <p class="error-message center-text small"></p>
+                <p class="success-message center-text small"></p>
+                <br>
+                
+                <div class="field">
+                    <p class="label small"> First Name <span class="error-message"></span> </p>
+                    <input type="text" placeholder="first name" name="firstname" >
+                </div>
+                <div class="field">
+                    <p class="label small"> Last Name <span class="error-message"></span> </p>
+                    <input type="text" placeholder="last name" name="lastname" >
+                </div>
+                <div class="field">
+                    <p class="label small"> Email <span class="error-message"></span> </p>
+                    <input type="text" placeholder="email" name="email" >
+                </div>
+                <div class="field">
+                    <p class="label small"> Username <span class="error-message"></span> </p>
+                    <input type="text" placeholder="username" name="username" >
+                </div>
+                <div class="field">
+                    <p class="label small"> Password <span class="error-message"></span> </p>
+                    <input type="password" placeholder="password" name="password" >
+                </div>
+                <br>
+                <div class="panel-footer center-text">
+                    <input id="register-btn" type="submit"  class="button button-blue" value="REGISTER">
+                </div>
             </form>
         </div>
     </main>
 
     <script src="./js/jquery.min.js"></script>  
-    <script src="./js/main.js"></script>    
+    <script src="./js/main.js"></script>  
+    <script src="./js/register.js"></script>
 </body>
 </html>
