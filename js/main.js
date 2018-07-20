@@ -4,6 +4,7 @@ $(document).ready(function () {
     $('nav.navigation .navbar .nav-right').addClass('animate').toggle();
   });
 
+  // RESPONSIVE NAV BAR FUNCTIONALITY
   $(window).on('resize', function () {
     if ($(this).width() > 700) {
       $('nav.navigation .navbar .nav-right').css('display', 'block');
@@ -99,10 +100,12 @@ $(document).ready(function () {
     $('.modal#detail-modal').css('display', 'none');
   });
 
+  // RESPONSE INFO
   $('.modal#detail-modal .modal-content .tile .tile-footer button.join').on('click', function () {
     $('.modal#detail-modal .modal-content .tile .tile-heading span.message').text('REQUEST SENT');
   });
 
+  // REQUESTS : ACCEPT
   $('.inner-container div button.accept-btn').on('click', function () {
     $(this).text('ACCEPTED').attr('disabled', 'disabled').css({
     	'background':'rgb(7, 199, 7)',
@@ -116,9 +119,7 @@ $(document).ready(function () {
 
   // USING THE REJECT BUTTON FOR REQUESTS
   $('.inner-container div button.reject-btn').on('click', function (event) {
-    let passenger = $(this).parent().prev().children()
-.children()
-.html();
+    let passenger = $(this).parent().prev().children().children().html();
 
     let status = $(this).prev().text();
 

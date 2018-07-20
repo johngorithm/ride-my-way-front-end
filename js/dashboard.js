@@ -1,3 +1,5 @@
+//VIEW SINGLE RIDE FUNCTION
+let viewRide;
 
 (() => {
   const baseUrl = 'http://localhost:9000/api/v1';
@@ -42,15 +44,62 @@
                 </div>
 
                 <div class="tile-footer center-text">
-                    <button data-ride-info="${ride}" class="button button-blue view">VIEW</button>
+                    <button data-ride='${JSON.stringify(ride)}' onClick="viewRide(this)" class="button button-blue view">VIEW</button>
                 </div>
             </div>
           </div>
         `
       });
-      ridesDomContainer.innerHTML = rideHtml;
+
+      ridesDomContainer.innerHTML = rideHtml;  
+
     }).catch( error => {
       console.log(error.message);
     })
   }
+
+    
+    const rideDetailModal = document.querySelector('.modal#detail-modal');
+    // closing the ride detail modal on clicking the modal overlay
+    $(window).click = (event) => {
+      if (event.target === '#detail-modal') {
+        rideDetailModal.style.display = 'none';
+      }
+    };
+
+    // closing the modal with the .close button
+    const modalCloseBtn = document.querySelector('.modal#detail-modal .modal-content .tile .tile-footer button.close');
+    modalCloseBtn.addEventListener('click', (event) => {
+      rideDetailModal.style.display = 'none';
+    });
+
+    // RESPONSE INFO
+    const joinRideBtn = document.querySelector('.modal#detail-modal .modal-content .tile .tile-footer button.join');
+    joinRideBtn.addEventListener('click', function () {
+      document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading span.message').textContent = 'REQUEST SENT';
+      
+    });
+
+    // DISPLAY SINGLE RIDE INFO
+    viewRide = (self) => {
+      const info = JSON.parse(self.getAttribute('data-ride'))
+
+      const rideHeader = document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading h4 span')
+      rideHeader.textContent = info.destination
+      rideHeader.style.textTransform = 'uppercase';
+      document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading p span').textContent = info.take_off_venue;
+      document.querySelector('.modal#detail-modal .modal-content .tile .tile-body .row p.date').textContent = (new Date(info.date)).toDateString().slice(4, 15);
+      document.querySelector('.modal#detail-modal .modal-content .tile .tile-body .row p.time').textContent = info.time.slice(0,5);
+      document.querySelector('.modal#detail-modal .modal-content .tile .tile-body p.driver').textContent = info.creator;
+      document.querySelector('.modal#detail-modal .modal-content .tile .tile-body.not-first span#capacity').textContent = info.capacity;
+      document.querySelector('.modal#detail-modal .modal-content .tile .tile-body.not-first span#space-occupied').textContent = info.space_occupied;
+      joinRideBtn.setAttribute('rideId', info.ride_id)
+
+      // clear old message
+      document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading span.message').textContent = '';
+
+      rideDetailModal.style.display = 'block';
+    }
 })();
+
+

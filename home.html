@@ -69,10 +69,17 @@
                     </div>
                 </div>
 
-                <div class="tile-body not-first center-text">
+                <div id="capacity-info" class="tile-body not-first center-text">
+                  <p class="left"><span class="badge" id="capacity"> </span>capacity</p>
+                  <p class="right"><span class="badge" id="space-occupied"> </span>occupied</p> 
+                </div>
+
+                <div class="tile-body center-text">
                     <p class="data-heading small">Driver</p>
                     <p class="small driver">Philip Newman</p>
                 </div>
+
+                
 
                 <div class="tile-footer center-text">
                     <button class="button button-blue close">CLOSE</button>
@@ -104,7 +111,7 @@
             RIDE OFFERS
         </a>
         <a href="./requests.html" class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-            MY RIDE REQUESTS
+            MY REQUESTS
         </a>
     </div>
 
@@ -113,183 +120,7 @@
 
     <main class="wrapper dropdown">
         <div class="row" id="rides-loader" >
-            <div id="loading">Loading ... </div>
-
-            <div class="co-xl-3 co-lg-3 co-md-4 co-sm-6">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>OLANDO</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="co-xl-3 co-lg-3 co-md-4 co-sm-6">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>CALABAR</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"Apkorsu", "destination": "CALABAR", "date":"13/6/18", "time":"12:31 PM", "from":"12, Main Str. Boystown"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="co-xl-3 co-lg-3 co-md-4 co-sm-6">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>BENIN</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"Uyosia", "destination": "BENIN", "date":"13/6/18", "time":"12:31 PM", "from":"12, Main Str. Boystown"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="co-xl-3 co-lg-3 co-md-4 co-sm-6">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>IKEJA</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"Dowins", "destination": "IKEJA", "date":"13/6/18", "time":"12:31 PM", "from":"34, Island str. Yaba"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="co-xl-3 co-lg-3 co-md-4 co-sm-6">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>OLANDO</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"Philip", "destination": "Olando", "date":"13/6/18", "time":"12:31 PM", "from":"12, Main Str. Boystown"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="co-xl-3 co-lg-3 co-md-4 co-sm-6">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>JOS</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"Haruna", "destination": "JOS", "date":"13/6/18", "time":"12:31 PM", "from":"12, Main Str. Boystown"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="co-xl-3 co-lg-3 co-md-4 co-sm-6">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>IBADAN</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"Segun", "destination": "IBADAN", "date":"13/6/18", "time":"12:31 PM", "from":"12, Main Str. Boystown"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-            </div>
-
+            <div id="loading" class="center-text">Loading ... </div>
         </div>
     </main>
 
