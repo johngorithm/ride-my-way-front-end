@@ -40,8 +40,10 @@ loginBtn.addEventListener('click', (event) => {
           return response.json();
         }).then( data => {
           if (data.status) {
+            errorOutput.innerHTML = '';
             successMessageOutput.innerHTML = data.message;
             localStorage.setItem('token', data.token)
+            localStorage.setItem('rmwuser', data.user)
             setInterval(() => {
               window.location.href = 'home.html'
             }, 2000)

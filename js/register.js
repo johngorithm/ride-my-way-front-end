@@ -51,7 +51,7 @@ registerForm.addEventListener('submit', (event) => {
       lastname : lastname.value,
       email : email.value,
     }
-    console.log(formData)
+
     fetch(`${baseUrl}/auth/signup`, {
       method: 'POST',
       body: JSON.stringify(formData),
@@ -62,6 +62,7 @@ registerForm.addEventListener('submit', (event) => {
       return response.json();
     }).then( data => {
       if (data.status) {
+        errorOutput.innerHTML = '';
         successMessageOutput.textContent = data.message;
         localStorage.setItem('token', data.token);
         localStorage.setItem('rmwuser', data.user);
