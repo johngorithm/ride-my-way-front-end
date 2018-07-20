@@ -1,0 +1,9 @@
+
+.tile .tile-body.not-first {
+  background: rgba(18, 148, 213, 0.042);
+}
+
+.tile .tile-body.not-first p{
+  font-family: 'Montserrat';
+  font-size: 14px;
+}

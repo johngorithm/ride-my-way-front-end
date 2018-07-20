@@ -178,18 +178,16 @@ p {
     border: 1px solid rgb(231, 226, 226);
     background: white;
     border-radius: 3px;
-    box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.05);
 }
 
 .tile .tile-heading {
     padding: 10px;
     border-bottom: 1px solid rgb(231, 226, 226);
-    background: white;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     height: 130px;
-    background: rgba(46, 202, 237, 0.859);
-    background: linear-gradient(180deg, dodgerblue 40%, rgb(33, 100, 215) 70%, rgb(65, 154, 232) 100%)
+    background: white;
 }
 .tile .tile-heading span.message {
     color: rgb(169, 246, 15);
@@ -200,11 +198,11 @@ p {
 .tile .tile-heading h4 {
     font-family: 'Julius Sans One', sans-serif;
     font-size: 18px;
-    color: white;
+    color: black;
     margin: 40px 0;
 }
 .tile .tile-heading h4 span {
-    color: skyblue;
+    color: dodgerblue;
 }
 .tile .tile-body {
     padding: 0;
@@ -216,7 +214,7 @@ p {
     padding: 5px;
 }
 .tile .tile-body.not-first {
-    padding: 30px 10px;
+    padding: 15px 10px;
 }
 .tile .tile-footer {
     padding: 10px;
@@ -228,7 +226,20 @@ p {
     font-weight: bold;
     color: black;
 }
-
+.badge {
+    line-height: 12px;
+    width:  18px;
+    color: white;
+    display: inline-block;
+    background: dodgerblue;
+    padding: 3px;
+    margin: 0px 4px 2px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
 .border {
     border-right: 1px solid rgb(231, 226, 226);
 }
