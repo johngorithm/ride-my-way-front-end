@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
   // TOGGLING NAVBAR ON SMALL SCREENS
   $('nav .navbar > p.navbar-toggle').on('click', function () {
@@ -77,4 +79,8 @@ $(document).ready(function () {
       $('.modal#reject-ride-request-modal').css('display', 'none');
     }, 2000);
   });
+
 });
+
+
+
