@@ -14,58 +14,8 @@ $(document).ready(function () {
   });
 
   // ADD OFFER FORM MODAL JS
-  $('nav.navigation .navbar ul li.nav-item a[href="#"]').on('click', function (event) {
-    event.preventDefault();
-    $('.modal#add-offer-modal').css('display', 'block');
-  });
-
-  // ADD OFFER MODAL .close button
-  $('.modal#add-offer-modal button.close').on('click', function (event) {
-    event.preventDefault();
-    $('.modal#add-offer-modal').css('display', 'none');
-  });
-
-  // ADD OFFER MODAL .create button
-  $('.modal#add-offer-modal button.create').on('click', function (event) {
-    event.preventDefault();
-    // form validate
-    let inputError = '';
-    let destination = $('#add-offer-modal .modal-content form input[name=destination]');
-    let time = $('#add-offer-modal .modal-content form input[name=time]');
-    let date = $('#add-offer-modal .modal-content form input[name=date]');
-    let takeOffVenue = $('#add-offer-modal .modal-content form input[name=takeoff_venue]');
-
-    let formFields = [destination, time, date, takeOffVenue];
-    let isAllProvided = true;
-    formFields.forEach(function (field) {
-      if (!field.val()) {
-        if (field.attr('name') == 'destination') {
-          inputError = 'destination is required!';
-          field.prev().find('span').text(inputError);
-        } else if (field.attr('name') == 'time') {
-          inputError = 'time is required!';
-          field.prev().find('span').text(inputError);
-        } else if (field.attr('name') == 'date') {
-          inputError = 'date is required!';
-          field.prev().find('span').text(inputError);
-        } else if (field.attr('name') == 'takeoff_venue') {
-          inputError = 'takeoff venue is required!';
-          field.prev().find('span').text(inputError);
-        }
-        isAllProvided = false;
-      }else {
-        field.prev().find('span').text('');
-      }
-    });
-
-    if (isAllProvided) {
-      $('#add-offer-modal .modal-content form p.success-message').text('YOUR RIDE OFFER IS SUCCESSFULLY CREATED!');
-      return false;
-    }
-  });
 
   // LOGIN
-
 
   // REGISTER
 
