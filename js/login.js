@@ -43,7 +43,7 @@ loginBtn.addEventListener('click', (event) => {
             errorOutput.innerHTML = '';
             successMessageOutput.innerHTML = data.message;
             localStorage.setItem('token', data.token)
-            localStorage.setItem('rmwuser', data.user)
+            localStorage.setItem('rmwuser', JSON.stringify(data.user));
             setTimeout(() => {
               window.location.href = 'home.html'
             }, 2000)

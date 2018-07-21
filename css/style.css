@@ -190,10 +190,8 @@ p {
     background: white;
 }
 .tile .tile-heading span.message {
-    color: rgb(169, 246, 15);
-    font-weight: bold;
     font-family: 'Montserrat', sans-serif;
-    
+    font-size: 13px;
 }
 .tile .tile-heading h4 {
     font-family: 'Julius Sans One', sans-serif;

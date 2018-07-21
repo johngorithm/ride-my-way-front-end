@@ -76,8 +76,32 @@ let viewRide;
     // RESPONSE INFO
     const joinRideBtn = document.querySelector('.modal#detail-modal .modal-content .tile .tile-footer button.join');
     joinRideBtn.addEventListener('click', function () {
-      document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading span.message').textContent = 'REQUEST SENT';
+      const messageOutput = document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading span.message');
+      messageOutput.style.color = 'gray';
+      messageOutput.textContent = 'sending ...';
       
+      const url = `${baseUrl}/rides/${this.getAttribute('rideId')}/requests`;
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'x-access-token': token,
+        }
+      }).then( response => {
+          return response.json();
+      }).then(data => {
+        if (data.status) {
+          messageOutput.textContent = data.message;
+          messageOutput.style.color = 'rgb(10, 200, 32)';
+        } else {
+          messageOutput.textContent = data.message;
+          messageOutput.style.color = 'orangered';
+          return;
+        }
+      }).catch( error => {
+        messageOutput.textContent = error.message;
+        messageOutput.style.color = 'orangered';
+        return
+      })
     });
 
     // DISPLAY SINGLE RIDE INFO
