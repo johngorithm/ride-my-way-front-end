@@ -65,8 +65,8 @@ registerForm.addEventListener('submit', (event) => {
         errorOutput.innerHTML = '';
         successMessageOutput.textContent = data.message;
         localStorage.setItem('token', data.token);
-        localStorage.setItem('rmwuser', data.user);
-        setInterval(() => {
+        localStorage.setItem('rmwuser', JSON.stringify(data.user));
+        setTimeout(() => {
           window.location.href = 'home.html'
         }, 2000)
       }else{

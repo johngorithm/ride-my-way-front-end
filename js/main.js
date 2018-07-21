@@ -69,41 +69,7 @@ $(document).ready(function () {
 
   // REGISTER
 
-  let rideDetailModal = $('.modal#detail-modal');
-
-  $('.tile .tile-footer button.view').on('click', function (e) {
-    let info = $(this).data('ride-info');
-
-    $('.modal#detail-modal .modal-content .tile .tile-heading h4 span').text(info.destination).css('text-transform', 'uppercase');
-    $('.modal#detail-modal .modal-content .tile .tile-heading p span').text(info.from);
-    $('.modal#detail-modal .modal-content .tile .tile-body .row p.date').text(info.date);
-    $('.modal#detail-modal .modal-content .tile .tile-body .row p.time').text(info.time);
-    $('.modal#detail-modal .modal-content .tile .tile-body.not-first p.driver').text(info.driver);
-
-    // clear old message
-    $('.modal#detail-modal .modal-content .tile .tile-heading span.message').text('');
-
-    rideDetailModal.css('display', 'block');
-  });
-
-  // closing the ride detail modal on clicking the modal overlay
-  $(window).click(function (event) {
-    let target = $(event.target);
-
-    if (target.is('#detail-modal')) {
-      rideDetailModal.css('display', 'none');
-    }
-  });
-
-  // closing the modal with the .close button
-  $('.modal#detail-modal .modal-content .tile .tile-footer button.close').on('click', function (event) {
-    $('.modal#detail-modal').css('display', 'none');
-  });
-
-  // RESPONSE INFO
-  $('.modal#detail-modal .modal-content .tile .tile-footer button.join').on('click', function () {
-    $('.modal#detail-modal .modal-content .tile .tile-heading span.message').text('REQUEST SENT');
-  });
+  // SHOW SINGLE RIDE DETAILS
 
   // REQUESTS : ACCEPT
   $('.inner-container div button.accept-btn').on('click', function () {
