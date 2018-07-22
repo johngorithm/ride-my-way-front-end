@@ -114,6 +114,7 @@ p {
     .co-md-10 {width: 83.33%;}
     .co-md-11 {width: 91.66%;}
     .co-md-12 {width: 100%;}
+
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -341,15 +342,14 @@ nav {
 .submenu a {
     text-decoration: none;
     font-size: 60%;
-    color: black;
     cursor: pointer;
     padding: 10px;
     font-size: 13px;
     font-weight: bold;
-    color: rgba(0,0,0,0.6);
+    color: rgba(0,0,0,0.4);
 }
 .submenu a:hover {
-    background: rgb(250, 245, 245);
+    background: rgb(203, 231, 254);
 }
 
 /*****/
@@ -504,38 +504,6 @@ form input {
     margin: 0;
 }
 
-/***REQUESTS PAGE STYLES***/
-.inner-container {
-    min-height: 56px;
-    border: 1px solid rgb(231, 226, 226);
-    border-radius: 3px;
-    width: 100%;
-    margin: 15px auto;
-    background: white;
-}
-@media only screen and (min-width: 768px) {
-    .inner-container {
-        text-align: left;
-        padding-left: 15px;
-    }
-}
-
-@media only screen and (min-width: 1000px) {
-    .inner-container {
-        width: 80%;
-        padding-left: 4%;
-    }
-}
-
-
-
-.inner-container [class*="co-"] {
-    padding: 10px;
-}
-
-.inner-container .request-msg {
-    line-height: 2.2;
-}
 
 
 
