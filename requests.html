@@ -51,13 +51,13 @@
         <div class="modal-content animate">
             <div class="tile">
                 <div class="tile-body center-text">
-                    <p class="confirm-msg small">Are you sure you want to REJECT a ride request from <span>John</span> </p>
+                    <p class="confirm-msg small">Are you sure you want to <strong>ACCEPT</strong> a ride request from <span>John</span> </p>
                     <p class="error-message smaller"></p>
                 </div>
 
                 <div class="tile-footer center-text">
                     <button class="button button-blue close">CLOSE</button>
-                    <button class="button button-white reject-btn">REJECT</button>
+                    <button onclick="acceptOrRejectRequest(this)" class="button button-white yes-btn">YES</button>
                 </div>
             </div>
         </div>
@@ -94,23 +94,9 @@
 
         <p id="loading">LOADING ...</p>
 
-        <div id="1" class="row request">
-            
-            <div class="request-msg  co-xl-7 co-lg-7 co-md-12 co-sm-12">
-                <p class="small"> <strong>Haruna</strong> want to ride with you to <strong>Ketu</strong></p>
-            </div>
-            <div class="request-btns co-xl-5 co-lg-5 co-md-12 co-sm-12">
-                <button class="button button-white reject-btn">REJECT</button>
-                <button class="button button-blue accept-btn">ACCEPT</button>
-            </div>
-        </div>
-
-        
-
     </main>
 
     <script src="./js/jquery.min.js"></script>  
-    <script src="./js/main.js"></script> 
     <script src="./js/requests.js"></script> 
 </body>
 </html>

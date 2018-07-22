@@ -9,13 +9,18 @@ const logout = (element) => {
   });
 }
 
+let confirmRequest;
+let acceptOrRejectRequest;
+let rejectRequest;
+const baseUrl = 'http://localhost:9000/api/v1';
+
 document.body.onload = () => {
    // LOG USER OUT OF APP
   const logoutBtn = document.querySelector('nav .navbar ul.nav-right li a#logout');
   logout(logoutBtn)
 
   // LOAD REQUESTS
-  const baseUrl = 'http://localhost:9000/api/v1';
+  
   const token = localStorage.getItem('token');
   const requestsDomContainer = document.querySelector('main#request-loader');
   if (token) {
@@ -31,23 +36,31 @@ document.body.onload = () => {
     }).then(data => {
       let requestHtml = '';
       if (data.requests) {
-        console.log(data.requests);
         data.requests.forEach(request => {
+        let tagColor;
+        if (request.status == 'accepted') {
+          tagColor = 'rgb(65, 220, 65)';
+        } else if (request.status == 'rejected') {
+          tagColor = 'orangered';
+        } else {
+          tagColor = 'dodgerblue';
+        }
         requestHtml += `
           <div id="${request.request_id}" class="row request">
             
             <div class="request-msg  co-xl-7 co-lg-7 co-md-12 co-sm-12">
+                <span style="background : ${tagColor}" class="tag">${request.status}</span>
                 <p class="small"> <strong>${request.sender}</strong> want to ride with you to <strong>${request.destination}</strong></p>
             </div>
             <div class="request-btns co-xl-5 co-lg-5 co-md-12 co-sm-12">
-                <button class="button button-white reject-btn">REJECT</button>
-                <button class="button button-blue accept-btn">ACCEPT</button>
+                <button onClick="confirmRequest(this, 'reject')" data-identities = '${JSON.stringify({ requestId: request.request_id, rideId: request.ride_id})}' data-sender="${request.sender}" class="button button-white reject-btn">REJECT</button>
+                <button onClick="confirmRequest(this, 'accept')" data-identities = '${JSON.stringify({ requestId: request.request_id, rideId: request.ride_id})}' data-sender="${request.sender}" class="button button-blue accept-btn">ACCEPT</button>
             </div>
-        </div>
-        `
-      });
+          </div>
+          `
+        });
 
-      requestsDomContainer.innerHTML = requestHtml;  
+        requestsDomContainer.innerHTML = requestHtml;
       } else {
         document.querySelector('main #loading').innerHTML = `${data.message}, Please login <p><a href="./login.html">LOGIN</a><p>`
       }
@@ -58,6 +71,88 @@ document.body.onload = () => {
       throw new Error(error.message);
     })
   } else {
-    document.querySelector('main #loading').innerHTML = `You are not logged in, Please login <a href="./login.html">LOGIN</a>`    
+   document.querySelector('main #loading').innerHTML = `You are not logged in, Please login <a href="./login.html">LOGIN</a>`    
+  } 
+
+  // DISPLAY REJECT OR ACCEPT REQUEST ACTION MODAL
+  confirmRequest= (self, action) => {
+    const identities = self.getAttribute('data-identities');
+    const sender = self.getAttribute('data-sender');
+    document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-footer button.yes-btn').setAttribute('data-request', identities);
+    document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-footer button.yes-btn').setAttribute('data-action', action);
+    document.querySelector('#reject-ride-request-modal .modal-content .tile .tile-body p span').textContent = sender;
+    document.querySelector('#reject-ride-request-modal .modal-content .tile .tile-body p strong').textContent = action.toUpperCase();
+    document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-body p.error-message').textContent = '';
+    
+    document.querySelector('#reject-ride-request-modal').style.display = 'block';
   }
+
+  acceptOrRejectRequest = (self) => {
+    // CONFIRMED REJECTION ACTION
+    const token = localStorage.getItem('token');
+    const messageOutput = document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-body p.error-message');
+    const requestData = JSON.parse(self.getAttribute('data-request'))
+    const action = self.getAttribute('data-action');
+    messageOutput.textContent = ''
+    messageOutput.style.color = 'orangered';
+
+    if (token) {
+      fetch(`${baseUrl}/users/rides/${requestData.rideId}/requests/${requestData.requestId}?action=${action}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+          'x-access-token': token,
+        }
+      })
+      .then(response => {
+        return response.json();
+      }).then(data => {
+        if (data.status){
+          const requestTag = document.getElementById(requestData.requestId).firstElementChild.firstElementChild;
+          messageOutput.textContent = data.message;
+
+          if (data.request.status === 'accepted') {
+            requestTag.style.backgroundColor = 'rgb(65, 220, 65)';
+            requestTag.textContent = 'accepted';
+            messageOutput.style.color = 'rgb(65, 220, 65)';
+          } else {
+            requestTag.style.backgroundColor = 'orangered';
+            requestTag.textContent = 'rejected';
+            messageOutput.style.color = 'orangered';
+          }
+        } else {
+          messageOutput.textContent = `${data.message}`
+          messageOutput.style.color = 'orangered';
+        }
+        
+
+      }).catch( error => {
+        messageOutput.textContent = `Error: ${error.message}`
+      })
+    } else {
+      requestsDomContainer.innerHTML = `You are not logged in, Please login <a href="./login.html">LOGIN</a>`    
+      document.querySelector('.modal#reject-ride-request-modal').style.display = 'none'
+    } 
+
+  
+  }
+
+  const requestActionConfirmationModal = document.querySelector('.modal#reject-ride-request-modal');
+  // close button for #reject-ride-request-modal
+  document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-footer button.close').addEventListener('click', (event) => {
+    requestActionConfirmationModal.style.display = 'none';
+  });
+
+  // REMOVING THE REQUEST ACTION MODAL POP ON WINDOW CLICK
+  window.addEventListener( 'click', (event) => {
+    if (event.target == requestActionConfirmationModal) {
+      requestActionConfirmationModal.style.display = 'none';
+    }
+  });
+
+
+  
+
 }
+
+
