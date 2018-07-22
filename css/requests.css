@@ -1,0 +1,56 @@
+/***REQUESTS PAGE STYLES***/
+
+.request {
+    min-height: 56px;
+    border: 1px solid rgb(231, 226, 226);
+    border-radius: 3px;
+    width: 95%;
+    margin: 20px auto;
+    background: white;
+}
+
+.request [class*="co-"] {
+    padding: 10px;
+}
+
+.request .request-btns {
+  line-height: 56px;
+  
+}
+
+.request .request-msg {
+  line-height: 56px;
+  background: rgba(255, 249, 249, 0.5);
+}
+
+@media only screen and (min-width: 992px) {
+    .request .request-btns{
+        border-left: 1px solid rgb(231, 226, 226);
+    }
+}
+@media only screen and (max-width: 991px) {
+    .request .request-btns{
+        border-top: 1px solid rgb(231, 226, 226);
+    }
+}
+@media only screen and (max-width: 992px) {
+    .request .request-btns{
+        line-height: 0px;
+        padding: 13px;
+    }
+
+    .request .request-msg{
+        line-height: 1.2;
+        padding: 30px;
+    }
+}
+
+@media only screen and (min-width: 450px) {
+    .request {
+        width: 80%;
+    }
+}
+
+
+
+
