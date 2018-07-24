@@ -1,3 +1,23 @@
+body {
+    background: rgb(250, 245, 245);
+}
+
+.modal#detail-modal .tile #capacity-info {
+    background: rgb(250, 245, 245)
+}
+.modal#detail-modal .tile .tile-body.padded {
+    padding: 10px;
+    
+}
+
+main p.auth-failure {
+    padding: 150px 0;
+    color: gray;
+    text-align: center;
+}
+
+
+
 header {
     height: 450px;
     padding-top: 65px;
@@ -18,45 +38,89 @@ header #user-info p span.bullet {
 }
 
 header #user-info img {
-    height: 160px;
-    width: 160px;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
     border: 3px solid white;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
-
+header #user-info span#email {
+    padding: 8px;
+    display: inline-block;
+    margin-top: 5px;
+    border: 1px solid white;
+    border-radius: 3px;
+}
 section#ride-details {
     padding: 30px 0;
-    background: 0;
+    background: rgb(250, 245, 245);
 }
 
 section#ride-details .square {
     border-radius: 5px;
     padding-top: 35px;
-    box-shadow: 0 2px 6px 3px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgb(250, 245, 245);
     border: 0;
+    width: 300px;
+    margin: 0 auto;
+    box-shadow: 0 5px 12px 3px rgba(0,0,0,0.03)
+}
+[class*="co-"] {
+    padding: 15px 0;
+    
+}
+.square h1 {
+    color: dodgerblue;
 }
 section#ride-details .square p {
     font-weight: bold;
     color: rgba(0,0,0,0.8);
 }
+@media only screen and (max-width: 450px) {
+    section#ride-details .square {
+        width: 260px;
+    }
+}
+
 section.hori-display {
-    padding: 30px 0;
+    padding: 50px 0;
 }
 
 section.hori-display .container {
-    padding: 15px 0;
+    padding: 20px 20px;
+    margin: 0 -10px;
     overflow-x: auto;
     white-space: nowrap;
-    text-align: left;
+    border: 1px solid white;
+    border-radius: 10px;
 }
 
 section.hori-display .container .item {
     display: inline-block;
-    margin-right: 15px;
-    width: 230px ;
+    margin-right: 25px;
+    width: 220px;
+    box-shadow: 0 5px 12px 3px rgba(0,0,0,0.03)
 }
 section.hori-display h5 {
     color: rgba(0,0,0,0.8);
     font-weight: bold;
 }
+
+section .tile .tile-body {
+    background: rgb(249, 249, 249)
+}
+
+section .tile {
+    border: 0;
+    border-radius: 4px;
+}
+
+section .tile .tile-heading {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+ section .title .tile-footer {
+     border-bottom-left-radius: 4px;
+     border-bottom-right-radius: 4px;
+ }
