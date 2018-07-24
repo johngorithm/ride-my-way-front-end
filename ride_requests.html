@@ -1,0 +1,107 @@
+welcome<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ride My Way | Ride Requests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/requests.css" />
+</head>
+<body id="request-body">
+
+    <div class="modal" id="add-offer-modal"><!--ADD OFFER MODAL STARTS-->
+        <div class="modal-content animate">
+            <form id="create-offer-form" action="#" method="POST">
+                <div class="row">
+                    <p class="success-message small center-text"></p>
+                    <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12">
+                        <p class="smaller">Destination <span class="error-message">  </span> </p>
+                        <input type="text" name="destination">
+                    </div>
+
+                    <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6">
+                        <p class="smaller">Date <span class="error-message">  </span> </p>
+                        <input type="date" name="date">
+                    </div>
+
+                    <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6">
+                        <p class="smaller">Time <span class="error-message">  </span> </p>
+                        <input type="time" name="time">
+                    </div>
+
+                    <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12">
+                        <p class="smaller">capacity <span class="error-message">  </span> </p>
+                        <input type="number" name="capacity">
+                    </div>
+
+                    <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12">
+                        <p class="smaller">Takeoff Venue <span class="error-message">  </span> </p>
+                        <input type="text" name="takeoff_venue">
+                    </div>
+
+                    <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12 right-text">
+                        <button type="button" class="button button-white close">CLOSE</button>                        
+                        <button type="submit" class="button button-blue create">CREATE OFFER</button>                      
+                    </div>
+                    
+                    
+                </div>
+            </form>
+        </div>
+    </div><!--OFFER A RIDE MODAL END-->
+
+    <div class="modal" id="reject-ride-request-modal"><!--REJECT OFFER MODAL STARTS-->
+        <div class="modal-content animate">
+            <div class="tile">
+                <div class="tile-body center-text">
+                    <p class="confirm-msg small">Are you sure you want to <strong>ACCEPT</strong> a ride request from <span>John</span> </p>
+                    <p class="error-message smaller"></p>
+                </div>
+
+                <div class="tile-footer center-text">
+                    <button class="button button-blue close">CLOSE</button>
+                    <button onclick="acceptOrRejectRequest(this)" class="button button-white yes-btn">YES</button>
+                </div>
+            </div>
+        </div>
+    </div><!--REJECT OFFER MODAL ENDS-->
+    
+    <nav class="navigation">
+        <div class="navbar wrapper">
+            <p class="navbar-toggle small">MENU</p>
+            <ul class="nav-items nav-left">
+                <li class="nav-item"> <a href="./index.html">RMW</a> </li>
+            </ul>
+            <ul class="nav-items nav-right">
+                <li class="nav-item"> <a href="./home.html">Dashboard</a> </li>
+                <li class="nav-item"> <a href="#">Offer A Ride</a> </li>
+                <li class="nav-item"> <a href="./profile.html">Profile</a> </li>
+                <li class="nav-item"> <a id="logout" href="./index.html">Logout</a> </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="submenu row">
+        <a href="./profile.html#rides-offered" class="link active co-xl-12 co-lg-12 co-md-12 co-sm-12 co-xs-12 center-text border">
+            << RIDE TO <span id="ride-destination">Ooops!</span> <span style="margin: 0;" class="tag">#</span>
+        </a>
+        
+    </div>
+
+    
+
+
+    <main class="dropdown center-text" id="request-loader">
+
+        <p id="loading">LOADING ...</p>
+
+    </main>
+
+    <script src="./js/jquery.min.js"></script>  
+    <script src="./js/main.js"></script>
+    <script src="./js/general.js"></script>
+    <script src="./js/ride_requests.js"></script> 
+</body>
+</html>

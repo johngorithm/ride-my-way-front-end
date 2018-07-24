@@ -1,10 +1,11 @@
 // BASE URL
-const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
 const token = localStorage.getItem('token');
 let displayUserInfo;
 let fetchRidesTaken;
 let fetchRidesOffered;
 let viewRide;
+let viewRequests;
 
 
 (() => {
@@ -188,7 +189,7 @@ let viewRide;
     const info = JSON.parse(self.getAttribute('data-ride'))
     if (category === 'offered') {
       viewRequestsBtn.textContent = 'REQUESTS';
-      viewRequestsBtn.setAttribute('onClick', 'viewRequests()');
+      viewRequestsBtn.setAttribute('onClick', 'viewRequests(this)');
       viewRequestsBtn.style.display = 'inline-block';
     } else {
       viewRequestsBtn.setAttribute('readonly', 'readonly')
@@ -204,7 +205,8 @@ let viewRide;
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body p.driver').textContent = info.creator;
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body.not-first span#capacity').textContent = info.capacity;
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body.not-first span#space-occupied').textContent = info.space_occupied;
-    viewRequestsBtn.setAttribute('rideId', info.ride_id)
+    viewRequestsBtn.setAttribute('data-ride-id', info.ride_id)
+    viewRequestsBtn.setAttribute('data-ride-destination', info.destination)
 
     // clear old message
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading span.message').textContent = '';
@@ -223,6 +225,15 @@ let viewRide;
     rideDetailModal.style.display = 'none';
   });
 
+
+  viewRequests = (self) => {
+    const rmwRide = {
+      rideId : self.getAttribute('data-ride-id'),
+      destination: self.getAttribute('data-ride-destination'),
+    }
+    localStorage.setItem('rmwRide', JSON.stringify(rmwRide));
+    window.location.href = './ride_requests.html';
+  }
 
 
 })();
