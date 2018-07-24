@@ -1,13 +1,4 @@
-const logout = (element) => {
-  element.addEventListener('click', (event) => {
-    event.preventDefault();
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('rmwuser');
-
-    window.location.href = 'index.html';
-  });
-}
 
 let confirmRequest;
 let acceptOrRejectRequest;
@@ -15,13 +6,10 @@ let rejectRequest;
 const baseUrl = 'http://localhost:9000/api/v1';
 
 document.body.onload = () => {
-   // LOG USER OUT OF APP
-  const logoutBtn = document.querySelector('nav .navbar ul.nav-right li a#logout');
-  logout(logoutBtn)
 
   // LOAD REQUESTS
   
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token') || 'no-token';
   const requestsDomContainer = document.querySelector('main#request-loader');
   if (token) {
     fetch(`${baseUrl}/users/rides/requests`, {
@@ -61,8 +49,10 @@ document.body.onload = () => {
         });
 
         requestsDomContainer.innerHTML = requestHtml;
+      } else if (data.message.includes('token')) {
+        document.querySelector('main #loading').innerHTML = `${data.message}, Please login <br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
       } else {
-        document.querySelector('main #loading').innerHTML = `${data.message}, Please login <p><a href="./login.html">LOGIN</a><p>`
+        document.querySelector('main #loading').innerHTML = `${data.message}`
       }
       
 
@@ -120,21 +110,20 @@ document.body.onload = () => {
             requestTag.textContent = 'rejected';
             messageOutput.style.color = 'orangered';
           }
+        } else if (data.message.includes('token')) {
+          requestsDomContainer.innerHTML = `${data.message}, Please login<br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
+          document.querySelector('.modal#reject-ride-request-modal').style.display = 'none'
         } else {
           messageOutput.textContent = `${data.message}`
           messageOutput.style.color = 'orangered';
         }
-        
-
       }).catch( error => {
         messageOutput.textContent = `Error: ${error.message}`
       })
     } else {
-      requestsDomContainer.innerHTML = `You are not logged in, Please login <a href="./login.html">LOGIN</a>`    
+      requestsDomContainer.innerHTML = `${data.message}, Please login <br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
       document.querySelector('.modal#reject-ride-request-modal').style.display = 'none'
     } 
-
-  
   }
 
   const requestActionConfirmationModal = document.querySelector('.modal#reject-ride-request-modal');

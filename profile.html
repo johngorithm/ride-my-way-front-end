@@ -13,7 +13,7 @@
     
     <div class="modal" id="add-offer-modal"><!--ADD OFFER MODAL STARTS-->
         <div class="modal-content animate">
-            <form action="#" method="POST">
+            <form id="create-offer-form" action="#" method="POST">
                 <div class="row">
                     <p class="success-message small center-text"></p>
                     <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12">
@@ -29,6 +29,11 @@
                     <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6">
                         <p class="smaller">Time <span class="error-message">  </span> </p>
                         <input type="time" name="time">
+                    </div>
+
+                    <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12">
+                        <p class="smaller">capacity <span class="error-message">  </span> </p>
+                        <input type="number" name="capacity">
                     </div>
 
                     <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12">
@@ -53,7 +58,7 @@
         <div class="modal-content animate">
             <div class="tile">
                 <div class="tile-heading center-text">
-                    <h4>RIDE TO<span>OLANDO</span></h4>
+                    <h4>RIDE TO <span>OLANDO</span></h4>
                     <p class="smaller"><strong>from: </strong><span>5, Main str. ketu</span></p>
                     <span class="message smaller"></span>
                 </div>
@@ -71,11 +76,16 @@
                     </div>
                 </div>
 
-                <div class="tile-body not-first center-text">
+                <div class="tile-body center-text padded">
                     <p class="data-heading small">Driver</p>
                     <p class="small driver">Philip Newman</p>
                 </div>
 
+                <div id="capacity-info" class="tile-body not-first center-text">
+                  <p class="left"><span class="badge" id="capacity"> </span>capacity</p>
+                  <p class="right"><span class="badge" id="space-occupied"> </span>occupied</p> 
+                </div>
+                
                 <div class="tile-footer center-text">
                     <button class="button button-blue close">CLOSE</button>
                     <button class="button button-white join">JOIN</button>
@@ -97,374 +107,60 @@
                 <li class="nav-item"> <a id="logout" href="./index.html">Logout</a> </li>
             </ul>
         </div>
-
-        
     </nav>
 
-    <header id="profile-header">
-        <div id="user-info" class="row" >
-            <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12 co-xs-12">
-                <img src="./images/johngorithm.jpeg" alt="avatar">
+    <main id="profile-loader">
+        <p id="general-message"></p>
 
-                <h4 id="fullname">JOHN OBI</h4>
-                <p class="small"><span id="phone"><span class="bullet"></span > 08112449820</span> <span class="bullet"></span><br><span id="email">johndoe@gmail.com</span> </p>
+        <header id="profile-header">
+            <div id="user-info" class="row" >
+                <p id="user-loader">Loading ...</p>
                 
             </div>
-        </div>
-    </header>
+        </header>
 
-    <section id="ride-details" >
-        <div class="row wrapper" >
-            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6">
-                <div class="square">
-                    <p>RIDES OFFERED</p>
-                    <h1>53</h1>
+        <section id="ride-details" >
+            <div class="row wrapper" >
+                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6">
+                    <div class="square">
+                        <p>RIDES OFFERED</p>
+                        <h1 id="offered"-1</h1>
+                    </div>
+                </div>
+
+                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6">
+                    <div class="square">
+                        <p>RIDES TAKEN</p>
+                        <h1 id="taken">-1</h1>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6">
-                <div class="square">
-                    <p>RIDES TAKEN</p>
-                    <h1>208</h1>
+        <section id="rides-offered" class="hori-display">
+            <div class="wrapper">
+                <h5 class="section-intro center-text">RIDES OFFERED</h5>
+                <div class="container center-text">
+                    <p id="rides-offered-loader " class="loading">Loading ...</p>
+
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="rides-offered" class="hori-display">
-        <div class="wrapper">
-            <h5 class="section-intro left-text">RIDES OFFERED</h5>
-            <div class="container">
-                <div class="item">
-                    <div class="tile">
-                        <div class="tile-heading center-text">
-                            <h4>RIDE TO<br><span>OLANDO</span></h4>
-                        </div>
-
-                        <div class="tile-body">
-                            <div class="row">
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                    <p class="data-heading small">Date</p>
-                                    <p class="small">13/6/18</p>
-                                </div>
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                    <p class="data-heading small">Time</p>
-                                    <p class="small">12:30 PM</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tile-footer center-text">
-                            <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                        </div>
-                    </div>
-
+        <section id="rides-taken" class="hori-display">
+            <div class="wrapper">
+                <h5 class="section-intro center-text">RIDES TAKEN</h5>
+                <div class="container center-text">
+                    <p id="rides-taken-loader" class="loading">Loading ...</p>
+                    
                 </div>
-
-                <div class="item">
-                    <div class="tile">
-                        <div class="tile-heading center-text">
-                            <h4>RIDE TO<br><span>OLANDO</span></h4>
-                        </div>
-
-                        <div class="tile-body">
-                            <div class="row">
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                    <p class="data-heading small">Date</p>
-                                    <p class="small">13/6/18</p>
-                                </div>
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                    <p class="data-heading small">Time</p>
-                                    <p class="small">12:30 PM</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tile-footer center-text">
-                            <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="tile">
-                        <div class="tile-heading center-text">
-                            <h4>RIDE TO<br><span>OLANDO</span></h4>
-                        </div>
-
-                        <div class="tile-body">
-                            <div class="row">
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                    <p class="data-heading small">Date</p>
-                                    <p class="small">13/6/18</p>
-                                </div>
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                    <p class="data-heading small">Time</p>
-                                    <p class="small">12:30 PM</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tile-footer center-text">
-                            <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div class="item">
-                    <div class="tile">
-                        <div class="tile-heading center-text">
-                            <h4>RIDE TO<br><span>OLANDO</span></h4>
-                        </div>
-
-                        <div class="tile-body">
-                            <div class="row">
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                    <p class="data-heading small">Date</p>
-                                    <p class="small">13/6/18</p>
-                                </div>
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                    <p class="data-heading small">Time</p>
-                                    <p class="small">12:30 PM</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tile-footer center-text">
-                            <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="tile">
-                        <div class="tile-heading center-text">
-                            <h4>RIDE TO<br><span>OLANDO</span></h4>
-                        </div>
-
-                        <div class="tile-body">
-                            <div class="row">
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                    <p class="data-heading small">Date</p>
-                                    <p class="small">13/6/18</p>
-                                </div>
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                    <p class="data-heading small">Time</p>
-                                    <p class="small">12:30 PM</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tile-footer center-text">
-                            <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div class="item">
-                    <div class="tile">
-                        <div class="tile-heading center-text">
-                            <h4>RIDE TO<br><span>OLANDO</span></h4>
-                        </div>
-
-                        <div class="tile-body">
-                            <div class="row">
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                    <p class="data-heading small">Date</p>
-                                    <p class="small">13/6/18</p>
-                                </div>
-                                <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                    <p class="data-heading small">Time</p>
-                                    <p class="small">12:30 PM</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tile-footer center-text">
-                            <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                
             </div>
-        </div>
-    </section>
-
-    <section id="rides-offered" class="hori-display wrapper">
-        <h5 class="section-intro left-text">RIDES TAKEN</h5>
-        <div class="container">
-            <div class="item">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>OLANDO</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="item">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>OLANDO</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="item">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>OLANDO</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="item">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>OLANDO</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="item">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>OLANDO</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="item">
-                <div class="tile">
-                    <div class="tile-heading center-text">
-                        <h4>RIDE TO<br><span>OLANDO</span></h4>
-                    </div>
-
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
-                                <p class="data-heading small">Date</p>
-                                <p class="small">13/6/18</p>
-                            </div>
-                            <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
-                                <p class="data-heading small">Time</p>
-                                <p class="small">12:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tile-footer center-text">
-                        <button data-ride-info='{"driver":"John", "destination": "OLANDO", "date":"13/6/18", "time":"12:31 PM", "from":"5, Main str. ketu"}' class="button button-blue view">VIEW</button>
-                    </div>
-                </div>
-
-            </div>
-
-            
-        </div>
-    </section>
+        </section>
+    </main>
 
     <script src="./js/jquery.min.js"></script>  
-    <script src="./js/main.js"></script>    
+    <script src="./js/main.js"></script>   
+    <script src="./js/general.js"></script> 
     <script src="./js/profile.js"></script>    
 </body>
 </html>

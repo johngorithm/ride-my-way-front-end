@@ -1,5 +1,6 @@
 //VIEW SINGLE RIDE FUNCTION
 let viewRide;
+let joinRide;
 
 (() => {
   const baseUrl = 'http://localhost:9000/api/v1';
@@ -17,7 +18,7 @@ let viewRide;
       return response.json();
     }).then(data => {
       let rideHtml = '';
-      if (data.rides) {
+      if (data.status) {
         data.rides.forEach(ride => {
         let date = new Date(ride.date);
         rideHtml += `
@@ -47,20 +48,22 @@ let viewRide;
                 <div class="tile-footer center-text">
                     <button data-ride='${JSON.stringify(ride)}' onClick="viewRide(this)" class="button button-blue view">VIEW</button>
                 </div>
+              </div>
             </div>
-          </div>
-        `
-      });
+          `
+        });
 
-      ridesDomContainer.innerHTML = rideHtml;  
+        ridesDomContainer.innerHTML = rideHtml;  
+      } else if (data.message.includes('token')) {
+        document.querySelector('main #rides-loader #loading').innerHTML = `<p> ${data.message}, Please login </p> <br><a style="text-decoration: none;" class="button button-blue" href="./login.html">LOGIN</a>`
       } else {
-        document.querySelector('main #rides-loader #loading').innerHTML = `${data.message}, Please login <a href="./login.html">LOGIN</a,>`
+        document.querySelector('main #rides-loader #loading').innerHTML = `<p> ${data.message}</p>`
       }
-      
-
     }).catch( error => {
-      console.log(error.message);
+      document.querySelector('main #rides-loader #loading').innerHTML = `<p>ERROR : ${error.message}</p>`
     })
+  } else {
+    document.querySelector('main #rides-loader #loading').innerHTML = `<p> Authentication Failed, Please login </p> <br><a style="text-decoration: none;" class="button button-blue" href="./login.html">LOGIN</a>`
   }
 
     
@@ -78,37 +81,49 @@ let viewRide;
     rideDetailModal.style.display = 'none';
   });
 
-  // RESPONSE INFO
+  // SEND REQUEST TO JOIN A RIDE OFFER
   const joinRideBtn = document.querySelector('.modal#detail-modal .modal-content .tile .tile-footer button.join');
-  joinRideBtn.addEventListener('click', function () {
+  joinRide = (self) => {
     const messageOutput = document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading span.message');
     messageOutput.style.color = 'gray';
     messageOutput.textContent = 'sending ...';
+  
+
+    const url = `${baseUrl}/rides/${self.getAttribute('rideId')}/requests`;
+    const token = localStorage.getItem('token');
     
-    const url = `${baseUrl}/rides/${this.getAttribute('rideId')}/requests`;
     
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'x-access-token': token,
-      }
-    }).then( response => {
-        return response.json();
-    }).then(data => {
-      if (data.status) {
-        messageOutput.textContent = data.message;
-        messageOutput.style.color = 'rgb(10, 200, 32)';
-      } else {
-        messageOutput.textContent = data.message;
+    if (token) {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'x-access-token': token,
+        }
+      }).then( response => {
+          return response.json();
+      }).then(data => {
+        if (data.status) {
+          messageOutput.textContent = data.message;
+          messageOutput.style.color = 'rgb(10, 200, 32)';
+        } else if (data.message.includes('token')) {
+          document.querySelector('main #rides-loader #loading').innerHTML = `<p style="margin-top: 50px;"> ${data.message}, Please login </p> <br><a style="text-decoration: none;" class="button button-blue" href="./login.html">LOGIN</a>`      
+          rideDetailModal.style.display = 'none';
+        } else {
+          messageOutput.textContent = data.message;
+          messageOutput.style.color = 'orangered';
+          return;
+        }
+      }).catch( error => {
+        messageOutput.textContent = error.message;
         messageOutput.style.color = 'orangered';
-        return;
-      }
-    }).catch( error => {
-      messageOutput.textContent = error.message;
-      messageOutput.style.color = 'orangered';
-      return
-    })
-  });
+        return
+      })
+    } else {
+      document.querySelector('main #rides-loader #loading').innerHTML = `<p style="margin-top: 50px;"> Authentication Failed, Please login </p> <br><a style="text-decoration: none;" class="button button-blue" href="./login.html">LOGIN</a>`      
+      rideDetailModal.style.display = 'none';
+    }
+    
+  };
 
   // DISPLAY SINGLE RIDE INFO
   viewRide = (self) => {
@@ -131,86 +146,7 @@ let viewRide;
   }
 
 
-  // ADD OFFER FORM MODAL JS
-  const addRideModal = document.querySelector('.modal#add-offer-modal');
-  document.querySelector('nav.navigation .navbar ul li.nav-item a[href="#"]').addEventListener('click', (event) => {
-    event.preventDefault();
-    addRideModal.style.display = 'block';
-  });
-
-  // ADD OFFER MODAL .close button
-  document.querySelector('.modal#add-offer-modal button.close').addEventListener('click', (event) => {
-    event.preventDefault();
-    addRideModal.style.display = 'none';
-  });
-
-  // ADD OFFER MODAL .create button
-  document.querySelector('.modal#add-offer-modal #create-offer-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    // form validate
-    let inputError = '';
-    const destination = document.querySelector('#add-offer-modal .modal-content form input[name=destination]');
-    const time = document.querySelector('#add-offer-modal .modal-content form input[name=time]');
-    const date = document.querySelector('#add-offer-modal .modal-content form input[name=date]');
-    const capacity = document.querySelector('#add-offer-modal .modal-content form input[name=capacity]');
-    const takeOffVenue = document.querySelector('#add-offer-modal .modal-content form input[name=takeoff_venue]');
-
-    const formFields = [destination, time, date, capacity, takeOffVenue];
-    let isAllProvided = true;
-    formFields.forEach((field) => {
-      if (!field.value) {
-        inputError = '* required!';
-        field.previousElementSibling.firstElementChild.textContent = inputError;
-        isAllProvided = false;
-      } else {
-        field.previousElementSibling.firstElementChild.textContent = '';
-      }
-    });
-
-    if (isAllProvided) {
-      document.querySelector('#add-offer-modal .modal-content form p.success-message').textContent = 'OFFER SUCCESSFUL';
-      const messageOutput = document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading span.message');
-      messageOutput.style.color = 'gray';
-      messageOutput.textContent = 'sending ...';
-      
-      const url = `${baseUrl}/users/rides`;
-
-      const formData = {
-        destination: destination.value,
-        time: time.value,
-        date: date.value,
-        capacity: capacity.value,
-        takeOffVenue: takeOffVenue.value,
-      }
-      
-      fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'x-access-token': token,
-          'Content-type': 'application/json'
-        }
-      }).then( response => {
-          return response.json();
-      }).then(data => {
-        if (data.status) {
-          messageOutput.textContent = data.message;
-          messageOutput.style.color = 'rgb(10, 200, 32)';
-          setTimeout(() => {
-            window.location.href = 'home.html'
-          }, 2000)
-        } else {
-          messageOutput.textContent = data.message;
-          messageOutput.style.color = 'orangered';
-          return;
-        }
-      }).catch( error => {
-        messageOutput.textContent = error.message;
-        messageOutput.style.color = 'orangered';
-        return
-      });
-    }
-  });
+  
 
   // LOG USER OUT OF APP
   const logoutBtn = document.querySelector('nav .navbar ul.nav-right li a#logout');

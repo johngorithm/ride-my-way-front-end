@@ -11,3 +11,7 @@
 .tile .tile-body.padded {
   padding: 10px;
 }
+.tile {
+  box-shadow: 0 5px 12px 3px rgba(0,0,0,0.03);
+  border: 0;
+}
