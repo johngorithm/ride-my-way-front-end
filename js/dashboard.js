@@ -3,7 +3,7 @@ let viewRide;
 let joinRide;
 
 (() => {
-  const baseUrl = 'http://localhost:9000/api/v1';
+  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
   const token = localStorage.getItem('token') || 'no-token';
   const ridesDomContainer = document.querySelector('main.wrapper .row#rides-loader');
   if (token) {

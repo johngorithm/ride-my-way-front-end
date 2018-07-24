@@ -17,7 +17,7 @@ const logout = (element) => {
   const logoutBtn = document.querySelector('nav .navbar ul.nav-right li a#logout');
   logout(logoutBtn)
   // REQUEST PARAMETERS
-  const baseUrl = 'http://localhost:9000/api/v1';
+  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
   const token = localStorage.getItem('token') || 'no-token';
   // ADD OFFER FORM MODAL JS
   const addRideModal = document.querySelector('.modal#add-offer-modal');
@@ -86,6 +86,10 @@ const logout = (element) => {
           setTimeout(() => {
             window.location.href = 'home.html'
           }, 2000)
+        } else if (data.message.includes('token')) {
+          messageOutput.innerHTML = '<p>Authentication Failed, Please <a style="text-decoration: none; color: dodgerblue;" href="./login.html">Login</a></p>';
+          messageOutput.style.color = 'orangered';
+          return;
         } else {
           messageOutput.textContent = data.message;
           messageOutput.style.color = 'orangered';

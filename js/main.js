@@ -15,19 +15,6 @@ $(document).ready(function () {
             }
   });
 
-  // ADD OFFER FORM MODAL JS
-
-  // LOGIN
-
-  // REGISTER
-
-  // SHOW SINGLE RIDE DETAILS
-
-  // REQUESTS : ACCEPT
-
-  // USING THE REJECT BUTTON FOR REQUESTS
-  
-  // REMOVING THE REJECT MODAL POP ON WINDOW CLICK
 });
 
 

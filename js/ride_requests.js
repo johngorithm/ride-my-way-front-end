@@ -9,10 +9,11 @@ document.body.onload = () => {
 
   // LOAD REQUESTS
   
-  const token = localStorage.getItem('token') || 'no-token';
+  const token = localStorage.getItem('token');
+  const rideData = JSON.parse(localStorage.getItem('rmwRide'));
   const requestsDomContainer = document.querySelector('main#request-loader');
   if (token) {
-    fetch(`${baseUrl}/users/rides/requests`, {
+    fetch(`${baseUrl}/users/rides/${rideData.rideId}/requests`, {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
@@ -23,6 +24,8 @@ document.body.onload = () => {
       return response.json();
     }).then(data => {
       let requestHtml = '';
+      document.querySelector('div.submenu a span#ride-destination').textContent = rideData.destination.toUpperCase() || '';
+      document.querySelector('div.submenu a span.tag').textContent = '#'+rideData.rideId || '';
       if (data.requests) {
         data.requests.forEach(request => {
         let tagColor;
@@ -47,7 +50,7 @@ document.body.onload = () => {
           </div>
           `
         });
-
+        
         requestsDomContainer.innerHTML = requestHtml;
       } else if (data.message.includes('token')) {
         document.querySelector('main #loading').innerHTML = `${data.message}, Please login <br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
