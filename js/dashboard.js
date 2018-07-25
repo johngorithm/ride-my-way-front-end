@@ -19,7 +19,7 @@ const convertTimeTo12HoursFormat = (time)  => {
                <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
               `
   const navRight = document.querySelector('nav .navbar .nav-right');
-  const baseUrl = 'http://localhost:9000/api/v1';
+  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('rmwuser'))
   const ridesDomContainer = document.querySelector('main.wrapper .row#rides-loader');

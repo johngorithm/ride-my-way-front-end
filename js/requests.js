@@ -3,7 +3,7 @@
 let confirmRequest;
 let acceptOrRejectRequest;
 let rejectRequest;
-const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
 
 document.body.onload = () => {
   const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>

@@ -1,5 +1,5 @@
 // BASE URL
-const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
 const token = localStorage.getItem('token');
 let displayUserInfo;
 let fetchRidesTaken;
@@ -18,8 +18,9 @@ const convertTimeTo12HoursFormat = (time)  => {
 }
 
 (() => {
-  const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
-               <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
+  const nav = `
+                <li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
+                <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
               `
   const navRight = document.querySelector('nav .navbar .nav-right');
   const mainContainer = document.querySelector('main');

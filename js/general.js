@@ -21,7 +21,7 @@ const logout = (element) => {
   const logoutBtn = document.querySelector('nav .navbar ul.nav-right li a#logout');
   logout(logoutBtn)
   // REQUEST PARAMETERS
-  const baseUrl = 'http://localhost:9000/api/v1';
+  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
  
   // ADD OFFER FORM MODAL JS
   const addRideModal = document.querySelector('.modal#add-offer-modal');
