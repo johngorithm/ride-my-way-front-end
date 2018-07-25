@@ -3,10 +3,13 @@
 let confirmRequest;
 let acceptOrRejectRequest;
 let rejectRequest;
-const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
+const baseUrl = 'http://localhost:9000/api/v1';
 
 document.body.onload = () => {
-
+  const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
+               <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
+              `
+  const navRight = document.querySelector('nav .navbar .nav-right');
   // LOAD REQUESTS
   
   const token = localStorage.getItem('token') || 'no-token';
@@ -50,6 +53,7 @@ document.body.onload = () => {
 
         requestsDomContainer.innerHTML = requestHtml;
       } else if (data.message.includes('token')) {
+        navRight.innerHTML = nav;
         document.querySelector('main #loading').innerHTML = `${data.message}, Please login <br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
       } else {
         document.querySelector('main #loading').innerHTML = `${data.message}`
@@ -61,7 +65,8 @@ document.body.onload = () => {
       throw new Error(error.message);
     })
   } else {
-   document.querySelector('main #loading').innerHTML = `You are not logged in, Please login <a href="./login.html">LOGIN</a>`    
+    navRight.innerHTML = nav;
+    document.querySelector('main #loading').innerHTML = `You are not logged in, Please login <a href="./login.html">LOGIN</a>`    
   } 
 
   // DISPLAY REJECT OR ACCEPT REQUEST ACTION MODAL
@@ -111,6 +116,7 @@ document.body.onload = () => {
             messageOutput.style.color = 'orangered';
           }
         } else if (data.message.includes('token')) {
+          navRight.innerHTML = nav;
           requestsDomContainer.innerHTML = `${data.message}, Please login<br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
           document.querySelector('.modal#reject-ride-request-modal').style.display = 'none'
         } else {
@@ -121,6 +127,7 @@ document.body.onload = () => {
         messageOutput.textContent = `Error: ${error.message}`
       })
     } else {
+      navRight.innerHTML = nav;
       requestsDomContainer.innerHTML = `${data.message}, Please login <br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
       document.querySelector('.modal#reject-ride-request-modal').style.display = 'none'
     } 

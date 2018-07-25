@@ -1,15 +1,27 @@
 // BASE URL
-const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
+const baseUrl = 'http://localhost:9000/api/v1';
 const token = localStorage.getItem('token');
 let displayUserInfo;
 let fetchRidesTaken;
 let fetchRidesOffered;
 let viewRide;
 let viewRequests;
+const convertTimeTo12HoursFormat = (time)  => {
+  time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
 
+  if (time.length > 1) { 
+    time = time.slice (1);  
+    time[5] = +time[0] < 12 ? ' AM' : ' PM'; 
+    time[0] = +time[0] % 12 || 12; 
+  }
+  return time.join ('');
+}
 
 (() => {
-  //  MAIN OUTPUT CONTAINER
+  const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
+               <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
+              `
+  const navRight = document.querySelector('nav .navbar .nav-right');
   const mainContainer = document.querySelector('main');
   const viewRequestsBtn = document.querySelector('.modal#detail-modal .modal-content .tile .tile-footer button.join');
   const rideDetailModal = document.querySelector('.modal#detail-modal');
@@ -34,7 +46,7 @@ let viewRequests;
       if (data.status) {
         const  userTemplate = `
           <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12 co-xs-12">
-              <img src="./images/johngorithm.jpeg" alt="${data.user.username} image">
+              <img src="./images/user.png" alt="${data.user.username} image">
 
               <h4 id="fullname">${data.user.firstname} ${data.user.lastname}</h4>
               <p class="small"><span id="phone"><span class="bullet"></span > @${data.user.username}</span></p>
@@ -46,6 +58,7 @@ let viewRequests;
         fetchRidesTaken();
         fetchRidesOffered();
       } else if (data.message.includes('token')) {
+        navRight.innerHTML = nav;
         mainContainer.innerHTML = `<p class="auth-failure"> Authentication Failed, Please login <br><br> <a style="text-decoration: none" class="button button-blue" href="./login.html">LOGIN</a></p>`;
       } else {
         mainContainer.textContent = data.message;
@@ -88,11 +101,11 @@ let viewRequests;
                     <div class="row">
                         <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
                             <p class="data-heading small">Date</p>
-                            <p class="small">${date.toDateString().slice(4, 15)}</p>
+                            <p class="small info">${date.toDateString().slice(4, 15)}</p>
                         </div>
                         <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
                             <p class="data-heading small">Time</p>
-                            <p class="small">${ride.time.slice(0,5)}</p>
+                            <p class="small info">${convertTimeTo12HoursFormat(ride.time.slice(0,5))}</p>
                         </div>
                     </div>
                 </div>
@@ -108,11 +121,11 @@ let viewRequests;
 
         offeredRidesContainer.innerHTML = ridesOfferedHtml;
       } else {
-        totalRidesOfferedDom.textContent = -1;
+        totalRidesOfferedDom.textContent = 0;
         offeredRidesContainer.firstElementChild.textContent = data.message
       }
     }).catch( error => {
-      totalRidesOfferedDom.textContent = -1;
+      totalRidesOfferedDom.textContent = 0;
       offeredRidesContainer.firstElementChild.textContent = error.message
     });
   }
@@ -148,11 +161,11 @@ let viewRequests;
                     <div class="row">
                         <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
                             <p class="data-heading small">Date</p>
-                            <p class="small">${date.toDateString().slice(4, 15)}</p>
+                            <p class="small info">${date.toDateString().slice(4, 15)}</p>
                         </div>
                         <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
                             <p class="data-heading small">Time</p>
-                            <p class="small">${ride.time.slice(0,5)}</p>
+                            <p class="small info">${convertTimeTo12HoursFormat(ride.time.slice(0,5))}</p>
                         </div>
                     </div>
                 </div>
@@ -168,19 +181,20 @@ let viewRequests;
 
         ridesTakenContainer.innerHTML = ridesTakenHtml;
       } else {
-        totalRidesTakenDom.textContent = -1;
+        totalRidesTakenDom.textContent = 0;
         ridesTakenContainer.firstElementChild.textContent = data.message
       }
     }).catch( error => {
-      totalRidesTakenDom.textContent = -1;
+      totalRidesTakenDom.textContent = 0;
       ridesTakenContainer.firstElementChild.textContent = error.message
     });
   }
 
-  // FETCH USER DATA
+  // FETCH USER DATA AND RIDES
   if (token) {
     displayUserInfo();
   } else {
+    navRight.innerHTML = nav;
     document.querySelector('main').innerHTML = `<p class="auth-failure">Authentication Failed, Please login<br><br><a style="text-decoration: none" class="button button-blue" href="./login.html">LOGIN</a></p>`
   }
 

@@ -3,10 +3,13 @@
 let confirmRequest;
 let acceptOrRejectRequest;
 let rejectRequest;
-const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
+const baseUrl = 'http://localhost:9000/api/v1';
 
 document.body.onload = () => {
-
+  const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
+               <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
+              `
+  const navRight = document.querySelector('nav .navbar .nav-right');
   // LOAD REQUESTS
   
   const token = localStorage.getItem('token');
@@ -41,7 +44,7 @@ document.body.onload = () => {
             
             <div class="request-msg  co-xl-7 co-lg-7 co-md-12 co-sm-12">
                 <span style="background : ${tagColor}" class="tag">${request.status}</span>
-                <p class="small"> <strong>${request.sender}</strong> want to ride with you to <strong>${request.destination}</strong></p>
+                <p class="small"> <strong>${request.sender}</strong> want to ride with you to <strong>${rideData.destination}</strong></p>
             </div>
             <div class="request-btns co-xl-5 co-lg-5 co-md-12 co-sm-12">
                 <button onClick="confirmRequest(this, 'reject')" data-identities = '${JSON.stringify({ requestId: request.request_id, rideId: request.ride_id})}' data-sender="${request.sender}" class="button button-white reject-btn">REJECT</button>
@@ -53,6 +56,7 @@ document.body.onload = () => {
         
         requestsDomContainer.innerHTML = requestHtml;
       } else if (data.message.includes('token')) {
+        navRight.innerHTML = nav;
         document.querySelector('main #loading').innerHTML = `${data.message}, Please login <br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
       } else {
         document.querySelector('main #loading').innerHTML = `${data.message}`
@@ -64,7 +68,8 @@ document.body.onload = () => {
       throw new Error(error.message);
     })
   } else {
-   document.querySelector('main #loading').innerHTML = `You are not logged in, Please login <a href="./login.html">LOGIN</a>`    
+    navRight.innerHTML = nav;
+    document.querySelector('main #loading').innerHTML = `You are not logged in, Please login <a href="./login.html">LOGIN</a>`    
   } 
 
   // DISPLAY REJECT OR ACCEPT REQUEST ACTION MODAL
@@ -76,7 +81,6 @@ document.body.onload = () => {
     document.querySelector('#reject-ride-request-modal .modal-content .tile .tile-body p span').textContent = sender;
     document.querySelector('#reject-ride-request-modal .modal-content .tile .tile-body p strong').textContent = action.toUpperCase();
     document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-body p.error-message').textContent = '';
-    
     document.querySelector('#reject-ride-request-modal').style.display = 'block';
   }
 
@@ -114,6 +118,7 @@ document.body.onload = () => {
             messageOutput.style.color = 'orangered';
           }
         } else if (data.message.includes('token')) {
+          navRight.innerHTML = nav;
           requestsDomContainer.innerHTML = `${data.message}, Please login<br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
           document.querySelector('.modal#reject-ride-request-modal').style.display = 'none'
         } else {
@@ -124,6 +129,7 @@ document.body.onload = () => {
         messageOutput.textContent = `Error: ${error.message}`
       })
     } else {
+      navRight.innerHTML = nav;
       requestsDomContainer.innerHTML = `${data.message}, Please login <br><br><a style="text-decoration: none" class="button button-blue dropdown" href="./login.html">LOGIN</a>`
       document.querySelector('.modal#reject-ride-request-modal').style.display = 'none'
     } 

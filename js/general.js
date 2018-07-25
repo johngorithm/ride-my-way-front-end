@@ -13,12 +13,16 @@ const logout = (element) => {
 
 
 (() => {
+  const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
+               <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
+              `
+  const navRight = document.querySelector('nav .navbar .nav-right');
   // LOG USER OUT OF APP
   const logoutBtn = document.querySelector('nav .navbar ul.nav-right li a#logout');
   logout(logoutBtn)
   // REQUEST PARAMETERS
-  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
-  const token = localStorage.getItem('token') || 'no-token';
+  const baseUrl = 'http://localhost:9000/api/v1';
+ 
   // ADD OFFER FORM MODAL JS
   const addRideModal = document.querySelector('.modal#add-offer-modal');
   document.querySelector('nav.navigation .navbar ul li.nav-item a[href="#"]').addEventListener('click', (event) => {
@@ -34,6 +38,7 @@ const logout = (element) => {
 
   // ADD OFFER MODAL .create button
   document.querySelector('.modal#add-offer-modal #create-offer-form').addEventListener('submit', (event) => {
+    const token = localStorage.getItem('token') || 'notoken'
     event.preventDefault();
     // form validate
     let inputError = '';
@@ -87,6 +92,7 @@ const logout = (element) => {
             window.location.href = 'home.html'
           }, 2000)
         } else if (data.message.includes('token')) {
+          navRight.innerHTML = nav;
           messageOutput.innerHTML = '<p>Authentication Failed, Please <a style="text-decoration: none; color: dodgerblue;" href="./login.html">Login</a></p>';
           messageOutput.style.color = 'orangered';
           return;

@@ -1,10 +1,27 @@
 //VIEW SINGLE RIDE FUNCTION
 let viewRide;
 let joinRide;
+let ownership = '';
+const convertTimeTo12HoursFormat = (time)  => {
+  // Check correct time format and split into components
+  time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+  if (time.length > 1) { // If time format correct
+    time = time.slice (1);  // Remove full string match value
+    time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+    time[0] = +time[0] % 12 || 12; // Adjust hours
+  }
+  return time.join (''); // return adjusted time or original string
+}
 
 (() => {
-  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
-  const token = localStorage.getItem('token') || 'no-token';
+  const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
+               <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
+              `
+  const navRight = document.querySelector('nav .navbar .nav-right');
+  const baseUrl = 'http://localhost:9000/api/v1';
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('rmwuser'))
   const ridesDomContainer = document.querySelector('main.wrapper .row#rides-loader');
   if (token) {
     fetch(`${baseUrl}/rides`, {
@@ -18,13 +35,22 @@ let joinRide;
       return response.json();
     }).then(data => {
       let rideHtml = '';
+
       if (data.status) {
         data.rides.forEach(ride => {
         let date = new Date(ride.date);
+        
+        if (ride.creator_id === user.user_id ) {
+          ownership = 'yours';
+        } else {
+          ownership = '';
+        }
+
         rideHtml += `
           <div class="co-xl-3 co-lg-4 co-md-6 co-sm-6">
             <div class="tile">
                 <div class="tile-heading center-text">
+                    <p class="${(ownership ? 'tag' : '')}">${ownership}</p>
                     <h4>RIDE TO<br><span>${ride.destination}</span></h4>
                 </div>
 
@@ -32,11 +58,11 @@ let joinRide;
                     <div class="row">
                         <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text border">
                             <p class="data-heading small">Date</p>
-                            <p class="small">${date.toDateString().slice(4, 15)}</p>
+                            <p class="small info">${date.toDateString().slice(4, 15)}</p>
                         </div>
                         <div class="co-xl-6 co-lg-6 co-md-6 co-sm-6 co-xs-6 center-text">
                             <p class="data-heading small">Time</p>
-                            <p class="small">${ride.time.slice(0,5)}</p>
+                            <p class="small info">${convertTimeTo12HoursFormat(ride.time.slice(0,5))}</p>
                         </div>
                     </div>
                 </div>
@@ -55,6 +81,7 @@ let joinRide;
 
         ridesDomContainer.innerHTML = rideHtml;  
       } else if (data.message.includes('token')) {
+        navRight.innerHTML = nav;
         document.querySelector('main #rides-loader #loading').innerHTML = `<p> ${data.message}, Please login </p> <br><a style="text-decoration: none;" class="button button-blue" href="./login.html">LOGIN</a>`
       } else {
         document.querySelector('main #rides-loader #loading').innerHTML = `<p> ${data.message}</p>`
@@ -63,6 +90,7 @@ let joinRide;
       document.querySelector('main #rides-loader #loading').innerHTML = `<p>ERROR : ${error.message}</p>`
     })
   } else {
+    navRight.innerHTML = nav;
     document.querySelector('main #rides-loader #loading').innerHTML = `<p> Authentication Failed, Please login </p> <br><a style="text-decoration: none;" class="button button-blue" href="./login.html">LOGIN</a>`
   }
 
@@ -106,6 +134,7 @@ let joinRide;
           messageOutput.textContent = data.message;
           messageOutput.style.color = 'rgb(10, 200, 32)';
         } else if (data.message.includes('token')) {
+          navRight.innerHTML = nav;
           document.querySelector('main #rides-loader #loading').innerHTML = `<p style="margin-top: 50px;"> ${data.message}, Please login </p> <br><a style="text-decoration: none;" class="button button-blue" href="./login.html">LOGIN</a>`      
           rideDetailModal.style.display = 'none';
         } else {
@@ -119,6 +148,7 @@ let joinRide;
         return
       })
     } else {
+      navRight.innerHTML = nav;
       document.querySelector('main #rides-loader #loading').innerHTML = `<p style="margin-top: 50px;"> Authentication Failed, Please login </p> <br><a style="text-decoration: none;" class="button button-blue" href="./login.html">LOGIN</a>`      
       rideDetailModal.style.display = 'none';
     }
