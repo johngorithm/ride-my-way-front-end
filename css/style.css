@@ -306,6 +306,9 @@ p {
     border-radius: 3px;
     border: 1px solid transparent;
 }
+.modal#add-offer-modal form#create-offer-form [class*="co-"] p.small {
+    font-weight: bold;
+}
 .success-message {
     color: rgb(116, 163, 22);
     font-size: 14px;

@@ -74,6 +74,8 @@ const logout = (element) => {
         capacity: capacity.value,
         takeOffVenue: takeOffVenue.value,
       }
+      messageOutput.style.color = 'gray';
+      messageOutput.textContent = 'sending ...';
       
       fetch(url, {
         method: 'POST',
