@@ -62,7 +62,6 @@ document.body.onload = () => {
 
     }).catch( error => {
       document.querySelector('main #loading').innerHTML = `Error: ${error.message}`
-      throw new Error(error.message);
     })
   } else {
     navRight.innerHTML = nav;
@@ -89,9 +88,11 @@ document.body.onload = () => {
     const requestData = JSON.parse(self.getAttribute('data-request'))
     const action = self.getAttribute('data-action');
     messageOutput.textContent = ''
-    messageOutput.style.color = 'orangered';
+    
 
     if (token) {
+      messageOutput.textContent = `${action}ing ...`
+      messageOutput.style.color = 'dodgerblue';
       fetch(`${baseUrl}/users/rides/${requestData.rideId}/requests/${requestData.requestId}?action=${action}`, {
         method: 'PUT',
         headers: {
