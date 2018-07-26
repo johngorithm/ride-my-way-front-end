@@ -164,7 +164,7 @@ const convertTimeTo12HoursFormat = (time)  => {
     rideHeader.style.textTransform = 'uppercase';
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading p span').textContent = info.take_off_venue;
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body .row p.date').textContent = (new Date(info.date)).toDateString().slice(4, 15);
-    document.querySelector('.modal#detail-modal .modal-content .tile .tile-body .row p.time').textContent = info.time.slice(0,5);
+    document.querySelector('.modal#detail-modal .modal-content .tile .tile-body .row p.time').textContent = convertTimeTo12HoursFormat(info.time.slice(0,5));
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body p.driver').textContent = info.creator;
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body.not-first span#capacity').textContent = info.capacity;
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body.not-first span#space-occupied').textContent = info.space_occupied;
