@@ -114,7 +114,7 @@ document.body.onload = () => {
           messageOutput.textContent = data.message;
           self.setAttribute('disabled', 'disabled');
           self.style.cursor = 'not-allowed';
-          for ( let btn of actionBtns) {
+          for (let btn of actionBtns) {
             btn.setAttribute('disabled', 'disabled');
             btn.style.cursor = 'not-allowed';
           }

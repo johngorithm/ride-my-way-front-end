@@ -390,12 +390,26 @@ nav ul > li > a {
 .nav-left {
     float: left;
     font-size: 100%;
+    position: relative;
+    padding-left: 40px;
 }
 .nav-right {
     float: right;
     font-size: 80%;
     text-transform: uppercase;
     margin-top: 3px;
+}
+
+.nav-left li img {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 0px;
+    padding: 4px;
+    background: white;
+    border-radius: 50%;
 }
 
 

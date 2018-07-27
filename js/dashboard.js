@@ -2,6 +2,7 @@
 let viewRide;
 let joinRide;
 let ownership = '';
+let viewRequests;
 const convertTimeTo12HoursFormat = (time)  => {
   // Check correct time format and split into components
   time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
@@ -72,7 +73,7 @@ const convertTimeTo12HoursFormat = (time)  => {
                 </div>
 
                 <div class="tile-footer center-text">
-                    <button data-ride='${JSON.stringify(ride)}' onClick="viewRide(this)" class="button button-blue view">VIEW</button>
+                    <button data-ownership="${(ownership === 'yours') ? 'true' : 'false'}" data-ride='${JSON.stringify(ride)}' onClick="viewRide(this)" class="button button-blue view">VIEW</button>
                 </div>
               </div>
             </div>
@@ -153,11 +154,12 @@ const convertTimeTo12HoursFormat = (time)  => {
       rideDetailModal.style.display = 'none';
     }
     
-  };
+  }; //END OF JOIN RIDE
 
   // DISPLAY SINGLE RIDE INFO
   viewRide = (self) => {
-    const info = JSON.parse(self.getAttribute('data-ride'))
+    const info = JSON.parse(self.getAttribute('data-ride'));
+    const ownership = JSON.parse(self.getAttribute('data-ownership'));
 
     const rideHeader = document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading h4 span')
     rideHeader.textContent = info.destination
@@ -168,11 +170,31 @@ const convertTimeTo12HoursFormat = (time)  => {
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body p.driver').textContent = info.creator;
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body.not-first span#capacity').textContent = info.capacity;
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-body.not-first span#space-occupied').textContent = info.space_occupied;
-    joinRideBtn.setAttribute('rideId', info.ride_id)
+    if (ownership) {
+      joinRideBtn.setAttribute('data-ride-id', info.ride_id)
+      joinRideBtn.setAttribute('data-ride-destination', info.destination)
+      joinRideBtn.textContent = 'REQUESTS';
+      joinRideBtn.setAttribute('onClick', 'viewRequests(this)')
+    } else {
+      joinRideBtn.setAttribute('rideId', info.ride_id);
+      joinRideBtn.textContent = 'JOIN';
+      joinRideBtn.setAttribute('onClick', 'joinRide(this)')
+    }
 
     // clear old message
     document.querySelector('.modal#detail-modal .modal-content .tile .tile-heading span.message').textContent = '';
     rideDetailModal.style.display = 'block';
+  }
+
+  
+  //VIEW REQUESTS FOR USER`S OWN RIDES
+  viewRequests = (self) => {
+    const rmwRide = {
+      rideId : self.getAttribute('data-ride-id'),
+      destination: self.getAttribute('data-ride-destination'),
+    }
+    localStorage.setItem('rmwRide', JSON.stringify(rmwRide));
+    window.location.href = './ride_requests.html';
   }
 
 
