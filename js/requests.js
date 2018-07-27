@@ -26,13 +26,16 @@ document.body.onload = () => {
       return response.json();
     }).then(data => {
       let requestHtml = '';
-      if (data.requests) {
+      if (data.status) {
         data.requests.forEach(request => {
         let tagColor;
+        let disableThis = false;
         if (request.status == 'accepted') {
           tagColor = 'rgb(65, 220, 65)';
+          disableThis = true;
         } else if (request.status == 'rejected') {
           tagColor = 'orangered';
+          disableThis = true;
         } else {
           tagColor = 'dodgerblue';
         }
@@ -44,8 +47,8 @@ document.body.onload = () => {
                 <p class="small"> <strong>${request.sender}</strong> want to ride with you to <strong>${request.destination}</strong></p>
             </div>
             <div class="request-btns co-xl-5 co-lg-5 co-md-12 co-sm-12">
-                <button onClick="confirmRequest(this, 'reject')" data-identities = '${JSON.stringify({ requestId: request.request_id, rideId: request.ride_id})}' data-sender="${request.sender}" class="button button-white reject-btn">REJECT</button>
-                <button onClick="confirmRequest(this, 'accept')" data-identities = '${JSON.stringify({ requestId: request.request_id, rideId: request.ride_id})}' data-sender="${request.sender}" class="button button-blue accept-btn">ACCEPT</button>
+                <button ${(disableThis) ? 'disabled style="cursor:not-allowed"' : ''} onClick="confirmRequest(this, 'reject')" data-identities = '${JSON.stringify({ requestId: request.request_id, rideId: request.ride_id})}' data-sender="${request.sender}" class="button button-white reject-btn">REJECT</button>
+                <button ${(disableThis) ? 'disabled style="cursor:not-allowed"' : ''} onClick="confirmRequest(this, 'accept')" data-identities = '${JSON.stringify({ requestId: request.request_id, rideId: request.ride_id})}' data-sender="${request.sender}" class="button button-blue accept-btn">ACCEPT</button>
             </div>
           </div>
           `
@@ -82,7 +85,7 @@ document.body.onload = () => {
   }
 
   acceptOrRejectRequest = (self) => {
-    // CONFIRMED REJECTION ACTION
+    // CONFIRMED REJECTION/ACCEPTANCE ACTION
     const token = localStorage.getItem('token');
     const messageOutput = document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-body p.error-message');
     const requestData = JSON.parse(self.getAttribute('data-request'))
@@ -91,7 +94,7 @@ document.body.onload = () => {
     
 
     if (token) {
-      messageOutput.textContent = `${action}ing ...`
+      messageOutput.textContent = (`${action}ing ...`).toUpperCase()
       messageOutput.style.color = 'dodgerblue';
       fetch(`${baseUrl}/users/rides/${requestData.rideId}/requests/${requestData.requestId}?action=${action}`, {
         method: 'PUT',
@@ -105,7 +108,14 @@ document.body.onload = () => {
       }).then(data => {
         if (data.status){
           const requestTag = document.getElementById(requestData.requestId).firstElementChild.firstElementChild;
+          const actionBtns = document.getElementById(requestData.requestId).firstElementChild.nextElementSibling.children;
           messageOutput.textContent = data.message;
+          self.setAttribute('disabled', 'disabled');
+          self.style.cursor = 'not-allowed';
+          for ( let btn of actionBtns) {
+            btn.setAttribute('disabled', 'disabled');
+            btn.style.cursor = 'not-allowed';
+          }
 
           if (data.request.status === 'accepted') {
             requestTag.style.backgroundColor = 'rgb(65, 220, 65)';
@@ -114,7 +124,7 @@ document.body.onload = () => {
           } else {
             requestTag.style.backgroundColor = 'orangered';
             requestTag.textContent = 'rejected';
-            messageOutput.style.color = 'orangered';
+            messageOutput.style.color = 'rgb(65, 220, 65)';
           }
         } else if (data.message.includes('token')) {
           navRight.innerHTML = nav;
