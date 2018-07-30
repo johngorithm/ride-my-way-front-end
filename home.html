@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="./images/favicon.png">
     <link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="./css/dashboard.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body id="offers-body">
 
@@ -18,7 +19,7 @@
                 <div class="row">
                     <p class="success-message small center-text"></p>
                     <div class="co-xl-12 co-lg-12 co-md-12 co-sm-12">
-                        <p class="small">Destination <span class="error-message">  </span> </p>
+                        <p class="small">Destination<span class="error-message"> </span> </p>
                         <input type="text" name="destination">
                     </div>
 
@@ -103,9 +104,18 @@
             </ul>
             <ul class="nav-items nav-right">
                 <li class="nav-item"> <a href="./home.html">Dashboard</a> </li>
-                <li class="nav-item"> <a href="#">Offer A Ride</a> </li>
-                <li class="nav-item"> <a href="./profile.html">Profile</a> </li>
-                <li class="nav-item"> <a id="logout" href="./index.html">Logout</a> </li>
+                <li id="offer-ride-btn" class="nav-item"> <a href="#">Offer A Ride</a> </li>
+                <li id="dropdown-nav" class="nav-item"> 
+                    <a href="#"><span>User</span> <i class="fas fa-chevron-down"></i></a>
+                    <div class="droppy">
+                        <span class="pointer"></span>
+                        <div class="dropdown-nav">
+                            <a id="first" href="./profile.html">Profile</a> 
+                            <a  href="./notifications.html">Notifications</a> 
+                            <a id="logout" href="./index.html">Logout</a> 
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>

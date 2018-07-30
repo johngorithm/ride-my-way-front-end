@@ -3,23 +3,66 @@ const logout = (element) => {
   element.addEventListener('click', (event) => {
     event.preventDefault();
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('rmwuser');
+    localStorage.clear();
 
     window.location.href = 'index.html';
   });
 }
 
-
+// INDEX PAGE
+const indexRequest = () => {
+  const user = JSON.parse(localStorage.getItem('rmwuser'));
+  if (user.username) {
+    window.location.href = './home.html';
+  } else {
+    window.location.href = './index.html';
+  }
+}
 
 (() => {
-  const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
-               <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
-              `
+  
+
+  const nav = `
+    <li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
+    <li class="nav-item"> <a href="./register.html">REGISTER</a> </li>
+  `;
   const navRight = document.querySelector('nav .navbar .nav-right');
   // LOG USER OUT OF APP
   const logoutBtn = document.querySelector('nav .navbar ul.nav-right li a#logout');
-  logout(logoutBtn)
+  if (logoutBtn) {
+    logout(logoutBtn);
+  }
+
+  // INDEX REQUEST
+  const indexNav = document.querySelector('nav .navbar .nav-left li a');
+  indexNav.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    indexRequest();
+  })
+
+  // DROPDOWN MENU
+  const usernameNavBtn = document.querySelector('nav .navbar .nav-right li#dropdown-nav > a');
+  let clickCounter = 0
+  if (usernameNavBtn) {
+    usernameNavBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (clickCounter > 0) {
+        document.querySelector('nav .navbar .nav-right li#dropdown-nav div.droppy').style.display = 'none';
+        clickCounter -= 1;
+      } else {
+        document.querySelector('nav .navbar .nav-right li#dropdown-nav div.droppy').style.display = 'block'; 
+        clickCounter += 1;     
+      }
+    });
+  }
+
+  // SHOW USER NAME ON NAV BAR
+  if (usernameNavBtn) {
+    usernameNavBtn.firstElementChild.textContent = JSON.parse(localStorage.getItem('rmwuser')).username;
+  }
+  
+
   // REQUEST PARAMETERS
   const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
  
@@ -151,6 +194,7 @@ const logout = (element) => {
           navRight.innerHTML = nav;
           messageOutput.innerHTML = '<p>Authentication Failed, Please <a style="text-decoration: none; color: dodgerblue;" href="./login.html">Login</a></p>';
           messageOutput.style.color = 'orangered';
+          localStorage.clear();
           return;
         } else {
           messageOutput.textContent = data.message;

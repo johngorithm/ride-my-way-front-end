@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ride My Way | Profile</title>
+    <title>RMW | Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="./images/favicon.png">
     <link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="./css/profile.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
     
@@ -103,9 +104,18 @@
             </ul>
             <ul class="nav-items nav-right">
                 <li class="nav-item"> <a href="./home.html">Dashboard</a> </li>
-                <li class="nav-item"> <a href="#">Offer A Ride</a> </li>
-                <li class="nav-item"> <a href="./profile.html">Profile</a> </li>
-                <li class="nav-item"> <a id="logout" href="./index.html">Logout</a> </li>
+                <li id="offer-ride-btn" class="nav-item"> <a href="#">Offer A Ride</a> </li>
+                <li id="dropdown-nav" class="nav-item"> 
+                    <a href="#"><span>User</span> <i class="fas fa-chevron-down"></i></a>
+                    <div class="droppy">
+                        <span class="pointer"></span>
+                        <div class="dropdown-nav">
+                            <a id="first" href="./profile.html">Profile</a> 
+                            <a  href="./notifications.html">Notifications</a> 
+                            <a id="logout" href="./index.html">Logout</a> 
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
