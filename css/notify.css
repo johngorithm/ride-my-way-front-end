@@ -1,0 +1,67 @@
+
+.notify-container {
+  border: 1px solid rgb(231, 226, 226);
+  width: 60%;
+  margin: 15px auto;
+  padding: 10px;
+  background: white;
+  border-radius: 3px;
+  position: relative;
+}
+@media only screen and (max-width: 800px) {
+  .notify-container {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .notify-container {
+    width: 95%;
+  }
+}
+.notify-container #image-container {
+  float: left;
+}
+.notify-container #image-container img {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+
+.notify-container #message-container {
+  margin-left: 80px;
+  padding-bottom: 18px;
+}
+.notify-container #message-container p {
+  font-size: 15px;
+  color: black;
+}
+.notify-container span#when {
+  position: absolute;
+  font-size: 13px;
+  font-weight: bold;
+  left: 0;
+  bottom: 10px;
+  font-family: 'Montserrat';
+  left: 95px;
+  color: dodgerblue;
+}
+.notify-container span#sender-username {
+  position: absolute;
+  font-size: 13px;
+  font-weight: bold;
+  right: 10px;
+  bottom: 10px;
+  font-family: 'Montserrat';
+  color: black;
+}
+.notify-container span#sender-username a {
+  color: rgb(196, 172, 172);
+}
+@media only screen and (max-width: 400px) {
+  .notify-container #message-container p {
+    font-size: 13px;
+  }
+  .notify-container span {
+    font-size: 11px !important;
+  }
+}

@@ -1,5 +1,5 @@
 
-const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
+const baseUrl = 'http://localhost:9000/api/v1';
 const registerForm = document.querySelector('main.content .wrapper form');
 
 

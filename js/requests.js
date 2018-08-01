@@ -3,7 +3,7 @@
 let confirmRequest;
 let acceptOrRejectRequest;
 let rejectRequest;
-const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
+const baseUrl = 'http://localhost:9000/api/v1';
 
 document.body.onload = () => {
   const nav = `<li class="nav-item"> <a href="./login.html">LOGIN</a> </li>
@@ -75,8 +75,11 @@ document.body.onload = () => {
   confirmRequest= (self, action) => {
     const identities = self.getAttribute('data-identities');
     const sender = self.getAttribute('data-sender');
-    document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-footer button.yes-btn').setAttribute('data-request', identities);
-    document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-footer button.yes-btn').setAttribute('data-action', action);
+    const yesBtn = document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-footer button.yes-btn');
+    yesBtn.setAttribute('data-request', identities);
+    yesBtn.setAttribute('data-action', action);
+    yesBtn.style.cursor = 'pointer';
+    yesBtn.removeAttribute('disabled');
     document.querySelector('#reject-ride-request-modal .modal-content .tile .tile-body p span').textContent = sender;
     document.querySelector('#reject-ride-request-modal .modal-content .tile .tile-body p strong').textContent = action.toUpperCase();
     document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-body p.error-message').textContent = '';
@@ -88,7 +91,7 @@ document.body.onload = () => {
     // CONFIRMED REJECTION/ACCEPTANCE ACTION
     const token = localStorage.getItem('token');
     const messageOutput = document.querySelector('.modal#reject-ride-request-modal .modal-content .tile .tile-body p.error-message');
-    const requestData = JSON.parse(self.getAttribute('data-request'))
+    const requestData = JSON.parse(self.getAttribute('data-request'));
     const action = self.getAttribute('data-action');
     messageOutput.textContent = ''
     

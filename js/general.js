@@ -64,7 +64,7 @@ const indexRequest = () => {
   
 
   // REQUEST PARAMETERS
-  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
+  const baseUrl = 'http://localhost:9000/api/v1';
  
   // ADD OFFER FORM MODAL JS
   const addRideModal = document.querySelector('.modal#add-offer-modal');
@@ -94,7 +94,6 @@ const indexRequest = () => {
     const formFields = [destination, time, date, capacity, takeOffVenue];
     let isAllProvided = true;
     const now = new Date();
-    console.log(now);
 
     formFields.forEach((field) => {
       if (!field.value) {
