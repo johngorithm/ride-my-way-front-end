@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1/';
 
 
 (() => {
