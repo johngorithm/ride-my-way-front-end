@@ -33,7 +33,7 @@ const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
           const receivedOnTimeValue = (new Date(receivedOn)).valueOf();
 
           let currentTimeValue = Date.now();
-          currentTimeValue = currentTimeValue + (userTimeZone * 60 * 1000)
+          currentTimeValue = currentTimeValue - (userTimeZone * 1000)
           let timeDifference = currentTimeValue - receivedOnTimeValue;
 
           let ago = '';
