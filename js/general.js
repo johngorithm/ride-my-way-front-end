@@ -64,7 +64,7 @@ const indexRequest = () => {
   
 
   // REQUEST PARAMETERS
-  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1/';
+  const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
  
   // ADD OFFER FORM MODAL JS
   const addRideModal = document.querySelector('.modal#add-offer-modal');

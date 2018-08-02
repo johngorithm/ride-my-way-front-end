@@ -1,6 +1,6 @@
 
 const loginBtn = document.querySelector('main.content .wrapper form button#login-btn');
-const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1/';
+const baseUrl = 'https://ride-m-way.herokuapp.com/api/v1';
 
 loginBtn.addEventListener('click', (event) => {
   event.preventDefault();
